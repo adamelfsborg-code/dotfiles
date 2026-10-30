@@ -13,9 +13,11 @@ return {
         css = { "prettier" },
         html = { "prettier" },
         json = { "prettier" },
+        jsonc = { "prettier" },
         yaml = { "prettier" },
         markdown = { "prettier" },
         lua = { "stylua" },
+        go = { "goimports" },
       },
       format_on_save = {
         lsp_fallback = true,

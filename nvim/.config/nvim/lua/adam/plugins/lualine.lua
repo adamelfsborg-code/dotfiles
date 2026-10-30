@@ -7,11 +7,11 @@ return {
   config = function()
     local lualine = require("lualine")
     local lazy_status = require("lazy.status")
-    local cp = require("catppuccin.palettes").get_palette()
+    local cp = require("catppuccin.palettes").get_palette("mocha")
 
     lualine.setup({
       options = {
-        theme = "catppuccin",
+        theme = "catppuccin-mocha",
       },
       sections = {
         lualine_x = {

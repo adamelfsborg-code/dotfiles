@@ -30,6 +30,7 @@ return {
         "emmet_ls",
         "gopls",
       },
+      automatic_enable = false,
     })
 
     mason_tool_installer.setup({
@@ -38,6 +39,7 @@ return {
         "stylua",
         "eslint_d",
         "golangci-lint",
+        "goimports",
       },
     })
   end,

@@ -1,12 +1,21 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Adam Elfsborg
-	email = adamelfsborg.dev@gmail.com
+	# Ingen email här med flit — den sätts av includeIf nedan, baserat på
+	# repots remote-URL. useConfigOnly gör att git VÄGRAR committa om ingen
+	# av dem matchade, istället för att tyst gissa fel adress.
+	useConfigOnly = true
 [pull]
-	rebase = true 
+	rebase = true
 [core]
 	editor = vim
 [fetch]
 	prune = true
 [init]
 	defaultBranch = main
+
+# --- Identitet per konto, vald av remote-URL (kräver git >= 2.36) ---
+[includeIf "hasconfig:remote.*.url:gh-jotib:**/**"]
+	path = ~/.gitconfig-jotib
+[includeIf "hasconfig:remote.*.url:gh-code:**/**"]
+	path = ~/.gitconfig-code

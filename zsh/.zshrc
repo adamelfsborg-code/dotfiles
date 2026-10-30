@@ -9,6 +9,9 @@ fi
 # Theme
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Give TypeScript/Effect language servers enough file descriptors for watchers.
+ulimit -n 8192 2>/dev/null || true
+
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
@@ -77,3 +80,23 @@ alias c='clear'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/adamelfsborg/Library/pnpm"
+typeset -U path PATH
+path=("$PNPM_HOME" ${path:#$PNPM_HOME})
+# pnpm end
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # Detta laddar nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+if command -v nvm >/dev/null 2>&1; then
+  nvm use --silent default >/dev/null 2>&1
+  hash -r
+fi
+
+. "$HOME/.local/bin/env"
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
