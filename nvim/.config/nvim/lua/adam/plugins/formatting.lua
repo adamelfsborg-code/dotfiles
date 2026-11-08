@@ -18,6 +18,7 @@ return {
         markdown = { "prettier" },
         lua = { "stylua" },
         go = { "goimports" },
+        python = { "ruff_organize_imports", "ruff_format" },
       },
       format_on_save = {
         lsp_fallback = true,

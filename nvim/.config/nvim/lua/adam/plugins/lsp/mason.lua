@@ -29,6 +29,8 @@ return {
         "lua_ls",
         "emmet_ls",
         "gopls",
+        "basedpyright",
+        "ruff",
       },
       automatic_enable = false,
     })
@@ -40,6 +42,7 @@ return {
         "eslint_d",
         "golangci-lint",
         "goimports",
+        "debugpy",
       },
     })
   end,

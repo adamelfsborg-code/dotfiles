@@ -62,6 +62,22 @@ return {
       return nil
     end
 
+    -- project .venv (uv) first, then an activated venv, then system python
+    local function find_python(root_dir)
+      if root_dir then
+        local venv_python = vim.fs.joinpath(root_dir, ".venv", "bin", "python")
+        if vim.fn.executable(venv_python) == 1 then
+          return venv_python
+        end
+      end
+
+      if vim.env.VIRTUAL_ENV then
+        return vim.fs.joinpath(vim.env.VIRTUAL_ENV, "bin", "python")
+      end
+
+      return vim.fn.exepath("python3")
+    end
+
     local function find_executable(cmd, root_dir)
       if root_dir then
         local local_cmd = vim.fs.joinpath(root_dir, "node_modules", ".bin", cmd)
@@ -377,6 +393,29 @@ return {
             },
           },
         },
+      },
+      basedpyright = {
+        cmd = { find_mason_bin("basedpyright-langserver") or "basedpyright-langserver", "--stdio" },
+        before_init = function(_, config)
+          config.settings.python = config.settings.python or {}
+          config.settings.python.pythonPath = find_python(config.root_dir)
+        end,
+        settings = {
+          basedpyright = {
+            -- ruff sorts imports
+            disableOrganizeImports = true,
+            analysis = {
+              typeCheckingMode = "standard",
+            },
+          },
+        },
+      },
+      ruff = {
+        cmd = { find_mason_bin("ruff") or "ruff", "server" },
+        on_attach = function(client)
+          -- let basedpyright handle hover
+          client.server_capabilities.hoverProvider = false
+        end,
       },
     }
 

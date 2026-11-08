@@ -141,6 +141,8 @@ return {
         "lua",
         "vimdoc",
         "sql",
+        "python",
+        "toml",
       },
       incremental_selection = {
         enable = true,

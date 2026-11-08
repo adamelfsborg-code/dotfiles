@@ -19,6 +19,12 @@ return {
 
     local luasnip = require("luasnip")
 
+    -- leave a snippet when the cursor moves out of it, so linked placeholders stop syncing
+    luasnip.config.set_config({
+      region_check_events = "CursorMoved,InsertEnter",
+      delete_check_events = "TextChanged",
+    })
+
     local lspkind = require("lspkind")
 
     require("luasnip.loaders.from_vscode").lazy_load()
