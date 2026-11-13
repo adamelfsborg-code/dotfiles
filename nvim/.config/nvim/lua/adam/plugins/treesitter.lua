@@ -4,6 +4,8 @@ return {
   build = ":TSUpdate",
   dependencies = {
     "windwp/nvim-ts-autotag",
+    -- Pinned to master to match nvim-treesitter master (main has a different API).
+    { "nvim-treesitter/nvim-treesitter-textobjects", branch = "master" },
   },
   config = function()
     local treesitter = require("nvim-treesitter.configs")
@@ -151,6 +153,34 @@ return {
           node_incremental = "<C-space>",
           scope_incremental = false,
           node_decremental = "<bs>",
+        },
+      },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ["af"] = { query = "@function.outer", desc = "Around function" },
+            ["if"] = { query = "@function.inner", desc = "Inside function" },
+            ["ac"] = { query = "@class.outer", desc = "Around class" },
+            ["ic"] = { query = "@class.inner", desc = "Inside class" },
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true,
+          goto_next_start = {
+            ["]f"] = { query = "@function.outer", desc = "Next function start" },
+          },
+          goto_previous_start = {
+            ["[f"] = { query = "@function.outer", desc = "Previous function start" },
+          },
+          goto_next_end = {
+            ["]F"] = { query = "@function.outer", desc = "Next function end" },
+          },
+          goto_previous_end = {
+            ["[F"] = { query = "@function.outer", desc = "Previous function end" },
+          },
         },
       },
     })
